@@ -1,0 +1,7 @@
+nvflare[pt]==2.9.0
+torch==2.14.0
+lightgbm==4.7.0
+scikit-learn==1.9.1
+PyWavelets==1.10.0
+openpyxl==3.1.5
+python-dotenv==1.2.4

@@ -1,0 +1,70 @@
+{
+  "source_excel": "/mnt/d/Code/flare-demo/lgbx/data/raw/raw_data.xlsx",
+  "rows": 4309,
+  "class_names": [
+    "不可用/不明确",
+    "限制性通气功能障碍",
+    "肺通气功能正常",
+    "阻塞性通气功能障碍",
+    "混合性通气功能障碍",
+    "非特异性通气功能障碍",
+    "小气道功能障碍"
+  ],
+  "class_to_index": {
+    "不可用/不明确": 0,
+    "限制性通气功能障碍": 1,
+    "肺通气功能正常": 2,
+    "阻塞性通气功能障碍": 3,
+    "混合性通气功能障碍": 4,
+    "非特异性通气功能障碍": 5,
+    "小气道功能障碍": 6
+  },
+  "image_size": 224,
+  "representation": "fixed-scale flow-volume loop",
+  "x_step": 0.01,
+  "x_max": 7.0,
+  "y_min": -12.0,
+  "y_max": 12.0,
+  "sample_wise_rescaling": false,
+  "phase_point_filter": {
+    "maximum_relative_difference": 0.35,
+    "rule": "both phases required and max(points)/min(points) <= 1 + threshold",
+    "input_rows": 5007,
+    "removed_by_label_filter": 0,
+    "removed_by_phase_point_filter": 698,
+    "kept_rows": 4309
+  },
+  "colours": {
+    "expiration_positive": "#DC372F",
+    "inspiration_negative": "#2D69D2"
+  },
+  "split_counts": {
+    "test": {
+      "不可用/不明确": 6,
+      "小气道功能障碍": 91,
+      "混合性通气功能障碍": 86,
+      "肺通气功能正常": 186,
+      "阻塞性通气功能障碍": 115,
+      "限制性通气功能障碍": 114,
+      "非特异性通气功能障碍": 18
+    },
+    "train": {
+      "不可用/不明确": 33,
+      "小气道功能障碍": 456,
+      "混合性通气功能障碍": 430,
+      "肺通气功能正常": 928,
+      "阻塞性通气功能障碍": 572,
+      "限制性通气功能障碍": 568,
+      "非特异性通气功能障碍": 90
+    },
+    "val": {
+      "不可用/不明确": 6,
+      "小气道功能障碍": 92,
+      "混合性通气功能障碍": 86,
+      "肺通气功能正常": 186,
+      "阻塞性通气功能障碍": 114,
+      "限制性通气功能障碍": 114,
+      "非特异性通气功能障碍": 18
+    }
+  }
+}

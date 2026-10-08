@@ -1,0 +1,88 @@
+{
+  "source_excel": "/mnt/d/Code/flare-demo/lgbx/data/raw/raw_data.xlsx",
+  "excel_layout": {
+    "label": "A",
+    "ids": "B:D",
+    "numeric": "E:AF",
+    "curve": "AG:ATC"
+  },
+  "class_names": [
+    "不可用/不明确",
+    "限制性通气功能障碍",
+    "肺通气功能正常",
+    "阻塞性通气功能障碍",
+    "混合性通气功能障碍",
+    "非特异性通气功能障碍",
+    "小气道功能障碍"
+  ],
+  "class_to_index": {
+    "不可用/不明确": 0,
+    "限制性通气功能障碍": 1,
+    "肺通气功能正常": 2,
+    "阻塞性通气功能障碍": 3,
+    "混合性通气功能障碍": 4,
+    "非特异性通气功能障碍": 5,
+    "小气道功能障碍": 6
+  },
+  "rows": 4309,
+  "numeric_shape": [
+    4309,
+    28
+  ],
+  "curve_shape": [
+    4309,
+    818
+  ],
+  "curve_processing": {
+    "expiration_rule": "first positive segment before the first negative sample",
+    "resampled_length": 256,
+    "wavelet": "db4",
+    "wavelet_level": 4,
+    "afd_levels": 6,
+    "afd_radii": [
+      0.0,
+      0.3,
+      0.55,
+      0.75,
+      0.9
+    ],
+    "afd_phases": 32
+  },
+  "phase_point_filter": {
+    "maximum_relative_difference": 0.35,
+    "rule": "both phases required and max(points)/min(points) <= 1 + threshold",
+    "input_rows": 5007,
+    "removed_by_label_filter": 0,
+    "removed_by_phase_point_filter": 698,
+    "kept_rows": 4309
+  },
+  "split_counts": {
+    "test": {
+      "不可用/不明确": 6,
+      "小气道功能障碍": 91,
+      "混合性通气功能障碍": 86,
+      "肺通气功能正常": 186,
+      "阻塞性通气功能障碍": 115,
+      "限制性通气功能障碍": 114,
+      "非特异性通气功能障碍": 18
+    },
+    "train": {
+      "不可用/不明确": 33,
+      "小气道功能障碍": 456,
+      "混合性通气功能障碍": 430,
+      "肺通气功能正常": 928,
+      "阻塞性通气功能障碍": 572,
+      "限制性通气功能障碍": 568,
+      "非特异性通气功能障碍": 90
+    },
+    "val": {
+      "不可用/不明确": 6,
+      "小气道功能障碍": 92,
+      "混合性通气功能障碍": 86,
+      "肺通气功能正常": 186,
+      "阻塞性通气功能障碍": 114,
+      "限制性通气功能障碍": 114,
+      "非特异性通气功能障碍": 18
+    }
+  }
+}
