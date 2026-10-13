@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Optional
 
 import numpy as np
-import nvflare.client as flare  # 新增
+import nvflare.client as flare
 import pandas as pd
 import torch
 import torch.nn as nn
