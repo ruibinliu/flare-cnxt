@@ -61,23 +61,8 @@ ROOT = Path(__file__).resolve().parent
 ROOT = Path(Config.RUNTIME_DATA_ROOT)
 EXCEL_PATH = ROOT / "raw" / "pulmonary.xlsx"
 
-
 MODEL_OUT = ROOT / "ple_node_standalone_best.pt"
 RESULT_OUT = ROOT / "ple_node_standalone_test_predictions.csv"
-
-# SEED = Config.SEED
-#
-# # PLE
-# N_BINS = 20
-# EMB_DIM = 8
-#
-# # 训练
-# BATCH_SIZE = 256
-# MAX_EPOCHS = 1
-# LEARNING_RATE = 1e-3
-# WEIGHT_DECAY = 1e-4
-# EARLY_STOP_PATIENCE = 12
-# GRAD_CLIP = 5.0
 
 # GPU 可用时自动使用 GPU
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -162,13 +147,13 @@ def evaluate(model, x_tensor, y, indices, batch_size=512):
 # ============================================================
 # 8. 训练
 # ============================================================
-
 def train_model(x_ple, y, split_indices, n_classes):
     train_idx = split_indices["train"]
     val_idx = split_indices["val"]
+    test_idx = split_indices["test"]
 
     # FLARE federated learning
-    flare.init()
+    # flare.init()
     sys_info = flare.system_info()
     client_name = sys_info["site_name"]
     print(f'Flare inited.')
@@ -209,7 +194,7 @@ def train_model(x_ple, y, split_indices, n_classes):
         model.load_state_dict(input_model.params)
 
         # 3. evaluate the received global model before local training
-        matrics_before_training, pred, prob = evaluate(model, x_tensor, y, val_idx)
+        matrics_before_training, pred, prob = evaluate(model, x_tensor, y, test_idx)
 
         # (optional) Task branch for cross-site evaluation
         if flare.is_evaluate():
@@ -344,7 +329,10 @@ def main():
     set_seed(Config.SEED)
 
     # 数据处理
-    x_ple, y, split_indices, prep = load_and_prepare_data(EXCEL_PATH)
+    flare.init()
+    data_file = ROOT / flare.get_site_name() / "data.xlsx"
+    print(f'data_file={data_file}')
+    x_ple, y, split_indices, prep = load_and_prepare_data(data_file)
 
     # 训练
     model, x_tensor, best_epoch, best_val_result = train_model(
@@ -371,7 +359,7 @@ def main():
 
     print("Classification Report:")
     print(classification_report(y[split_indices["test"]], test_pred, target_names=list(prep["classes"]), digits=4,
-                                zero_division=0, ))
+                                zero_division=0))
 
     print("Confusion Matrix:")
     print(confusion_matrix(y[split_indices["test"]], test_pred, ))
